@@ -76,7 +76,7 @@
                         </Button>
                     </children>
                 </VBox>
-                <StackPane fx:id="contentArea" maxWidth="1.7976931348623157E308" prefHeight="412.0" prefWidth="591.0" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS" />
+                <StackPane fx:id="contentArea" prefHeight="412.0" prefWidth="591.0" style="-fx-background-color: #fff;" VBox.vgrow="ALWAYS" />
             </items>
         </SplitPane>
     </center>
