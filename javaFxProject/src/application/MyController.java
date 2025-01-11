@@ -85,5 +85,9 @@ public class MyController {
         // Load the corresponding page
         loadPage(page);
     }
+    public void showArticles(String category) {
+        contentArea.getChildren().clear();
+
+    }
     
 }
