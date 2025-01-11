@@ -55,9 +55,9 @@ public class MyController {
         //SideMenu
         homeButton.setOnAction(event -> handleButtonClick(homeButton, "Home.fxml"));
         searchPage.setOnAction(event -> handleButtonClick(searchPage, "Search.fxml"));
-        techButton.setOnAction(event -> clearContent());
-        politicsButton.setOnAction(event -> clearContent());
-        sportsButton.setOnAction(event -> clearContent());
+        techButton.setOnAction(event -> showArticles("Tech"));
+        politicsButton.setOnAction(event -> showArticles("Politics"));
+        sportsButton.setOnAction(event -> showArticles("Sports"));
     }
 
     private void clearContent() {

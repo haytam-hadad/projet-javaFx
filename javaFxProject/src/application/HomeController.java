@@ -26,7 +26,7 @@ public class HomeController {
             // Clear existing articles
             articlesBox.getChildren().clear();
 
-            String imagePath = "file:/C:/Users/hp/OneDrive/Desktop/1.jpg" ; // Use file URI format
+            String imagePath = "file:/resources/1.jpg" ; // Use file URI format
             addArticle("News article 1", "Content for the first dynamic news article.", "Technology", imagePath);
             addArticle("News article 2", "Content for the second dynamic news article.", "Sports", imagePath);
             addArticle("News article 3", "Content for the third dynamic news article.", "Health", imagePath);
