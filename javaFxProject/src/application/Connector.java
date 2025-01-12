@@ -27,24 +27,25 @@ public class Connector {
         return connection;
     }
 
-    // Method to fetch articles by category
-    public static List<HBox> fetchArticles(String category) {
+    
+ // Method to fetch articles by category
+    public static List<HBox> fetchArticles(String c) {
         List<HBox> articleUIs = new ArrayList<>();
         
-        // Default query for fetching articles based on category, if category is passed
+        // Default query for fetching articles
         String query = "SELECT * FROM article";
         
         // Add category condition if category is passed (not null or empty)
-        if (category != null && !category.isEmpty()) {
+        if (c != null && !c.isEmpty()) {
             query += " WHERE category = ?";
         }
         
         try (Connection connection = connect(); 
              PreparedStatement statement = connection.prepareStatement(query)) {
 
-            // If category is passed, set the category in the query
-            if (category != null && !category.isEmpty()) {
-                statement.setString(1, category); // Setting the category parameter correctly
+            // Set the category parameter if it is provided
+            if (c != null && !c.isEmpty()) {
+                statement.setString(1, c); // Setting the category parameter correctly
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -52,6 +53,7 @@ public class Connector {
                     String title = resultSet.getString("Title");
                     String content = resultSet.getString("content");
                     String imageUrl = resultSet.getString("ImageUrl");
+                    String category = resultSet.getString("category"); // Always fetch category from DB
 
                     // Create Article object (JavaFX component) for each result
                     Article article = new Article(title, content, category, imageUrl);
@@ -60,12 +62,13 @@ public class Connector {
             }
 
         } catch (SQLException e) {
-            System.out.println("Error fetching articles for category: " + category);
+            System.out.println("Error fetching articles for category: " + c);
             e.printStackTrace();
         }
 
         return articleUIs;
     }
+
 
 
     public static List<HBox> searchForArticles(String keyword) {
@@ -100,7 +103,7 @@ public class Connector {
                     System.out.println("Image URL: " + imageUrl);
 
                     // Create Article object (JavaFX component) for each result
-                    Article article = new Article(title, content, imageUrl, category); // Pass category to the Article object
+                    Article article = new Article(title, content, category , imageUrl); // Pass category to the Article object
                     articleUIs.add(article.getArticleHBox());  // Add HBox to the list
                 }
             }

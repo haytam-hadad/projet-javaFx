@@ -54,13 +54,14 @@ public class SearchController {
         } else {
             // Add the articles to a new VBox
             VBox resultsVBox = new VBox(10);
+            resultsVBox.setStyle("-fx-background-color: #fff");
             resultsVBox.getChildren().addAll(articles);
 
             // Create a ScrollPane for the VBox
             ScrollPane scrollPane = new ScrollPane();
             scrollPane.setContent(resultsVBox);
             scrollPane.setFitToWidth(true); 
-            scrollPane.setStyle("-fx-padding: 10px;"); 
+            scrollPane.setStyle("-fx-padding: 10px; -fx-background-color: #fff"); 
 
             // Add the ScrollPane to the searchResultsVBox
             searchResultsVBox.getChildren().add(scrollPane);

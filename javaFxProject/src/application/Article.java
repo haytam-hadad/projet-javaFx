@@ -23,14 +23,14 @@ public class Article {
         articleHBox.setSpacing(10);
         articleHBox.setStyle("-fx-background-color: #fff; " +
                              "-fx-padding: 10px; " +
-                             "-fx-border-radius: 10px; " +
-                             "-fx-background-radius: 10px; " +
+                             "-fx-border-radius: 5px; " +
+                             "-fx-background-radius: 5px; " +
                              "-fx-border-width: 1px; " +
-                             "-fx-border-color: #ddd; " +
+                             "-fx-border-color: brown; " +
                              "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0.2, 0, 4);");
         articleHBox.setAlignment(Pos.CENTER);
 
-        // Text container (VBox for title, category, and content)
+        // Text container (VBox for title, content, and category)
         textVBox = new VBox();
         textVBox.setSpacing(15);
         textVBox.setStyle("-fx-font-family: 'Arial', sans-serif; -fx-padding: 0 10px 10px 10px");
@@ -49,10 +49,6 @@ public class Article {
                             "-fx-background-radius: 8px;");
         titleLabel.setAlignment(Pos.CENTER);
 
-        // Category label
-        categoryLabel = new Label(category);
-        categoryLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: brown; -fx-font-style: italic;");
-
         // Content label
         contentLabel = new Label(content);
         contentLabel.setWrapText(true);
@@ -61,7 +57,12 @@ public class Article {
         VBox.setVgrow(contentLabel, Priority.ALWAYS);
         contentLabel.setMaxHeight(Double.MAX_VALUE);
 
-        // Add text elements to VBox
+        // Category label
+        categoryLabel = new Label(category);
+        categoryLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: brown; -fx-font-style: italic;");
+        categoryLabel.setAlignment(Pos.BOTTOM_LEFT);
+
+        // Add title and content elements to VBox
         textVBox.getChildren().addAll(titleLabel, contentLabel, categoryLabel);
 
         // Add image only if URL is not null or empty

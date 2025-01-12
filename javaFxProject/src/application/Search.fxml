@@ -7,15 +7,14 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.control.ScrollPane?>
 
-<VBox alignment="TOP_CENTER" maxWidth="800.0" prefHeight="201.0" prefWidth="503.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController">
+<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="521.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController">
     <children>
-        <VBox maxWidth="1.7976931348623157E308" prefHeight="113.0" prefWidth="467.0" style="-fx-padding: 15px; -fx-background-color: #f1f1f1; -fx-background-radius: 10px;">
+        <VBox maxWidth="1.7976931348623157E308" prefHeight="151.0" prefWidth="501.0" style="-fx-padding: 15px; -fx-background-color: brown; -fx-background-radius: 10px;">
             <children>
-                <Label alignment="CENTER" cache="true" maxWidth="1.7976931348623157E308" prefHeight="75.0" prefWidth="467.0" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: brown; -fx-padding: 20px;" text="Search for the latest news and Articles" textAlignment="CENTER" underline="true">
+                <Label alignment="CENTER" cache="true" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #fff; -fx-padding: 20px 0;" text="Search for the latest news and Articles" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true">
                     <font>
-                        <Font size="20.0" />
+                        <Font size="30.0" />
                     </font>
                 </Label>
                 <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="445.0" style="-fx-background-color: #222; -fx-border-color: #222; -fx-background-radius: 10px; -fx-border-radius: 10px;">
@@ -37,7 +36,7 @@
         <!-- No Results Label (for displaying "No results found") -->
         <Label fx:id="noResultsLabel" style="-fx-font-weight: bold; -fx-text-fill: red;" text="" visible="false">
             <font>
-                <Font size="14.0" />
+                <Font size="19.0" />
             </font>
         </Label>
            <VBox fx:id="searchResultsVBox" spacing="10.0" style="-fx-padding: 10px;">
