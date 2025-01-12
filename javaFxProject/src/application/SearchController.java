@@ -45,7 +45,7 @@ public class SearchController {
         noResultsLabel.setVisible(false);
 
         // Fetch articles from the database based on the search keyword
-        List<HBox> articles = DataBaseConnector.searchForArticles(keyword);
+        List<HBox> articles = Connector.searchForArticles(keyword);
 
         // Check if any articles were returned
         if (articles.isEmpty()) {

@@ -105,7 +105,7 @@ public class MyController {
 
         
         // Fetch articles for the given category
-        List<HBox> articles = DataBaseConnector.fetchArticles(category);  // Assuming you have this method for fetching by category
+        List<HBox> articles = Connector.fetchArticles(category);  // Assuming you have this method for fetching by category
 
         // Create a VBox to hold the title and articles
         VBox pageContainer = new VBox();
