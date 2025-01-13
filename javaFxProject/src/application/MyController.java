@@ -46,7 +46,6 @@ public class MyController {
     @FXML
     private Button techButton;
     
-
     @FXML
     private void initialize() {
     	
@@ -57,8 +56,8 @@ public class MyController {
         signupButton.setOnAction(event -> clearContent());
         
         //SideMenu
-        homeButton.setOnAction(event -> showArticles(null));
         searchPage.setOnAction(event -> loadPage("Search.fxml"));
+        homeButton.setOnAction(event -> showArticles(null));
         techButton.setOnAction(event -> showArticles("Tech"));
         politicsButton.setOnAction(event -> showArticles("Politics"));
         sportsButton.setOnAction(event -> showArticles("Sports"));
@@ -77,17 +76,6 @@ public class MyController {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private void handleButtonClick(Button clickedButton, String page) {
-        // Remove the 'visited' class from all buttons in the side menu
-        for (Node button : sideMenuVBox.getChildren().filtered(node -> node instanceof Button)) {
-            button.getStyleClass().remove("visited-button");
-        }
-        // Add the 'visited' class to the clicked button
-        clickedButton.getStyleClass().add("visited-button");
-        // Load the corresponding page
-        loadPage(page);
     }
 
     public void showArticles(String category) {

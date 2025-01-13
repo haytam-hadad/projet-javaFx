@@ -14,12 +14,13 @@
 
     <!-- Top Section -->
     <top>
-        <HBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="690.0" spacing="10.0" style="-fx-background-color: brown; -fx-padding: 10px;">
+        <HBox fx:id="topSection" alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="690.0" spacing="10.0" style="-fx-background-color: brown; -fx-padding: 10px;">
             <children>
-                <Label alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="32.0" prefWidth="426.0" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: white;" text=" 🌍 World News" HBox.hgrow="ALWAYS">
-               <font>
-                  <Font size="25.0" />
-               </font></Label>
+                <Label fx:id="appTitleLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="32.0" prefWidth="426.0" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text=" 🌍 World News" HBox.hgrow="ALWAYS">
+                    <font>
+                        <Font size="25.0" />
+                    </font>
+                </Label>
                 <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" prefWidth="80.0" style="-fx-font-weight: bold; -fx-background-color: #222; -fx-background-radius: 10px; -fx-text-fill: #fff;" text="Log in" HBox.hgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -36,40 +37,40 @@
 
     <!-- Bottom Section -->
     <bottom>
-        <HBox alignment="CENTER" spacing="20.0" style="-fx-background-color: #222; -fx-padding: 10px;">
+        <HBox fx:id="bottomSection" alignment="CENTER" spacing="20.0" style="-fx-background-color: #222; -fx-padding: 10px;">
             <children>
-                <Label style="-fx-text-fill: white;" text="© 2025 World News" />
-                <Label style="-fx-text-fill: white;" text="Contact: info@worldnews.com" />
+                <Label fx:id="footerLabel" style="-fx-text-fill: white;" text="© 2025 World News" />
+                <Label fx:id="contactLabel" style="-fx-text-fill: white;" text="Contact: info@worldnews.com" />
             </children>
         </HBox>
     </bottom>
 
     <center>
-		<SplitPane fx:id="mainSplitPane" dividerPositions="0.27" prefHeight="381.0" prefWidth="673.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="mainSplitPane" dividerPositions="0.27" prefHeight="381.0" prefWidth="673.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
             <items>
                 <VBox fx:id="sideMenuVBox" maxWidth="450.0" spacing="5.0" style="-fx-background-color: #000; -fx-padding: 5px;" VBox.vgrow="ALWAYS">
                     <children>
-                        <Button fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" styleClass="visited-button" text=" 🏠 Home">
+                        <Button fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: brown; -fx-text-fill: #fff;" text=" 🏠 Home">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="searchPage" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" 🔎 Search">
+                        <Button fx:id="searchPage" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" 🔎 Search">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="techButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Technologies">
+                        <Button fx:id="techButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Technologies">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="politicsButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Politics">
+                        <Button fx:id="politicsButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Politics">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                        <Button fx:id="sportsButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 14px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Sports">
+                        <Button fx:id="sportsButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" Sports">
                             <cursor>
                                 <Cursor fx:constant="HAND" />
                             </cursor>

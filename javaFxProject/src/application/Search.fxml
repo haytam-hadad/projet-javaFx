@@ -8,16 +8,16 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="521.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController">
+<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="521.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController" fx:id="mainVBox">
     <children>
-        <VBox maxWidth="1.7976931348623157E308" prefHeight="151.0" prefWidth="501.0" style="-fx-padding: 15px; -fx-background-color: brown; -fx-background-radius: 10px;">
+        <VBox maxWidth="1.7976931348623157E308" prefHeight="151.0" prefWidth="501.0" style="-fx-padding: 15px; -fx-background-color: brown; -fx-background-radius: 10px;" fx:id="headerVBox">
             <children>
-                <Label alignment="CENTER" cache="true" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #fff; -fx-padding: 20px 0;" text="Search for the latest news and Articles" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true">
+                <Label alignment="CENTER" cache="true" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #fff; -fx-padding: 20px 0;" text="Search for the latest news and Articles" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true" fx:id="headerLabel">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="445.0" style="-fx-background-color: #222; -fx-border-color: #222; -fx-background-radius: 10px; -fx-border-radius: 10px;">
+                <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="445.0" style="-fx-background-color: #222; -fx-border-color: #222; -fx-background-radius: 10px; -fx-border-radius: 10px;" fx:id="searchHBox">
                     <children>
                         <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Enter keyword..." style="-fx-background-color: #fff; -fx-border-color: #222222; -fx-padding: 0 20px; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         <Button fx:id="submitSearch" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #222; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-text-fill: #fff;" text="Search 🔎" HBox.hgrow="ALWAYS">
@@ -39,8 +39,8 @@
                 <Font size="19.0" />
             </font>
         </Label>
-           <VBox fx:id="searchResultsVBox" spacing="10.0" style="-fx-padding: 10px;">
-               <!-- Articles will be dynamically added here -->
-           </VBox>
+        <VBox fx:id="searchResultsVBox" spacing="10.0" style="-fx-padding: 10px;">
+            <!-- Articles will be dynamically added here -->
+        </VBox>
     </children>
 </VBox>

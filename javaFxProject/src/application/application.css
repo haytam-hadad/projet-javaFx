@@ -2,15 +2,10 @@
 
 Button:hover {
     -fx-background-color: #333 !important;
+    -fx-text-fill : #fff !important;
 }
 
 Button:pressed {
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
 }
-
-.visited-button{
-	-fx-background-color: brown !important;  /* Example color for visited */
-    -fx-text-fill: white !important;
-}
-
