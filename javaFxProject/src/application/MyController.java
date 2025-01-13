@@ -2,10 +2,9 @@ package application;
 
 import java.util.List;
 import java.util.ResourceBundle;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
@@ -52,8 +51,8 @@ public class MyController {
         // Set initial page (Home)
     	showArticles(null);
         
-        loginButton.setOnAction(event -> clearContent());
-        signupButton.setOnAction(event -> clearContent());
+        getLoginButton().setOnAction(event -> loadLogContent());
+        getSignupButton().setOnAction(event -> loadSignContent());
         
         //SideMenu
         searchPage.setOnAction(event -> loadPage("Search.fxml"));
@@ -62,8 +61,53 @@ public class MyController {
         politicsButton.setOnAction(event -> showArticles("Politics"));
         sportsButton.setOnAction(event -> showArticles("Sports"));
     }
-
-    private void clearContent() {
+    
+    private void loadLogContent() {
+        // Clear only the content area (not the side menu)
+        contentArea.getChildren().clear();
+        
+        try {
+            // Load the login page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("authentification.fxml"));
+            Parent loginContent = loader.load();
+            
+            AuthMyController authController = loader.getController();
+            authController.setMyController(this);
+            
+            // Add the login page to the content area
+            contentArea.getChildren().add(loginContent);
+            
+            // Hide login and signup buttons
+            loginButton.setVisible(false);
+            signupButton.setVisible(false);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    private void loadSignContent(){
+    	// Clear only the content area (not the side menu)
+        contentArea.getChildren().clear();
+        
+        try {
+            // Load the login page
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("Signing.fxml"));
+            Parent signinContent = loader.load();
+            
+            // Add the login page to the content area
+            contentArea.getChildren().add(signinContent);
+            
+            // Hide login and signup buttons
+            loginButton.setVisible(false);
+            signupButton.setVisible(false);
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void clearContent() {
         contentArea.getChildren().clear();
     }
 
@@ -123,6 +167,27 @@ public class MyController {
         // Add the page container (with title and articles) to the content area
         contentArea.getChildren().add(pageContainer);
     }
+
+	public Button getSignupButton() {
+		return signupButton;
+	}
+
+	public void setSignupButton(Button signupButton) {
+		this.signupButton = signupButton;
+	}
+
+	public Button getLoginButton() {
+		return loginButton;
+	}
+
+	public void setLoginButton(Button loginButton) {
+		this.loginButton = loginButton;
+	}
+	
+	public StackPane getContentArea() {
+        return contentArea;
+    }
+
 
 
     
