@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -26,6 +27,9 @@ public class MyController {
 
     @FXML
     private Button homeButton;
+    
+    @FXML
+    private Button profileButton;
 
     @FXML
     private Button loginButton;
@@ -55,6 +59,7 @@ public class MyController {
         getSignupButton().setOnAction(event -> loadSignContent());
         
         //SideMenu
+        profileButton.setOnAction(event -> loadPage("userPage.fxml"));
         searchPage.setOnAction(event -> loadPage("Search.fxml"));
         homeButton.setOnAction(event -> showArticles(null));
         techButton.setOnAction(event -> showArticles("Tech"));
@@ -115,7 +120,7 @@ public class MyController {
         clearContent();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
-            VBox pageContent = loader.load();
+            Node pageContent = loader.load(); // Node will work for any type of root element
             contentArea.getChildren().add(pageContent);
         } catch (IOException e) {
             e.printStackTrace();

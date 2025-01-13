@@ -55,6 +55,11 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
+                  <Button fx:id="profileButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text="👤 Profile">
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
+                  </Button>
                         <Button fx:id="searchPage" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" 🔎 Search">
                             <cursor>
                                 <Cursor fx:constant="HAND" />

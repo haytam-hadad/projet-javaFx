@@ -12,35 +12,35 @@
 
 <StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AuthMyController">
    <children>
-      <VBox alignment="CENTER" prefHeight="346.0" prefWidth="496.0" spacing="10.0">
+      <VBox alignment="CENTER" prefHeight="417.0" prefWidth="600.0" spacing="10.0">
          <children>
-            <Label fx:id="titrelogin" text="Log In :">
+            <Label fx:id="titrelogin" style="-fx-font-weight: bold; -fx-padding: 20px;" text="Log In :">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
-            <Label text="username :">
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="username :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="userfield" />
-            <Label text="Password :">
+            <TextField fx:id="userfield" style="-fx-font-weight: bold; -fx-padding: 5px; -fx-background-radius: 5px; -fx-border-radius: 5px;" />
+            <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="Password :">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <PasswordField fx:id="passwordfield" />
+            <PasswordField fx:id="passwordfield" style="-fx-font-weight: bold; -fx-padding: 5px; -fx-background-radius: 5px; -fx-border-radius: 5px;" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0">
                <children>
-                  <Button fx:id="connecter" mnemonicParsing="false" onAction="#onLogin" text="connecter" textAlignment="CENTER">
+                  <Button fx:id="connecter" mnemonicParsing="false" onAction="#onLogin" style="-fx-font-weight: bold; -fx-background-color: brown; -fx-text-fill: #fff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-font-size: 16px;" text="connecter" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="signup" mnemonicParsing="false" onAction="#OnSignup" text="Sign Up">
+                  <Button fx:id="signup" mnemonicParsing="false" onAction="#OnSignup" style="-fx-font-weight: bold; -fx-background-color: brown; -fx-text-fill: #fff; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-font-size: 16px;" text="Sign in" textAlignment="CENTER">
                      <font>
-                        <Font size="18.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
                </children>

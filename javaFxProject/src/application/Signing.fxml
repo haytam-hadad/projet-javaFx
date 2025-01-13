@@ -13,34 +13,43 @@
    <children>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
          <children>
-            <Label fx:id="signlabel" text="Sign In :">
+            <Label fx:id="signlabel" style="-fx-font-weight: bold; -fx-padding: 20px;" text="Sign In :">
                <font>
                   <Font size="37.0" />
                </font>
             </Label>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="10.0">
                <children>
-                  <Label text="Username :" />
-                  <TextField fx:id="userfield" prefHeight="25.0" prefWidth="290.0" />
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="Username :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="userfield" prefHeight="25.0" prefWidth="297.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="30.0">
                <children>
-                  <Label text="E-mail :" />
-                  <TextField fx:id="emailfield" prefHeight="25.0" prefWidth="290.0" />
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="E-mail :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <TextField fx:id="emailfield" prefHeight="25.0" prefWidth="296.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="50.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Label text="Password :" />
-                  <PasswordField fx:id="passfield" prefHeight="25.0" prefWidth="290.0" />
+                  <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="Password :">
+                     <font>
+                        <Font size="15.0" />
+                     </font></Label>
+                  <PasswordField fx:id="passfield" prefHeight="25.0" prefWidth="290.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="70.0" prefWidth="600.0">
                <children>
-                  <Button fx:id="submitbtn" mnemonicParsing="false" onAction="#OnSubmit" style="-fx-background-color: lightgreen;" text="Submit">
+                  <Button fx:id="submitbtn" mnemonicParsing="false" onAction="#OnSubmit" prefHeight="43.0" prefWidth="121.0" style="-fx-font-weight: bold; -fx-text-fill: #fff; -fx-background-color: brown; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-font-size: 16px;" text="Submit">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </Button>
                </children>

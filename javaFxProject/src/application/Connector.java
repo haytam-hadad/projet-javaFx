@@ -11,7 +11,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 
 public class Connector {
-    private static final String URL = "jdbc:mysql://localhost:3306/projetjavafx";
+    private static final String URL = "jdbc:mysql://localhost:3306/javadb";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
