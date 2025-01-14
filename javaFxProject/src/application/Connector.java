@@ -5,7 +5,6 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
@@ -15,41 +14,26 @@ public class Connector {
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
-    // Connect to the database
+    // Method to establish a connection to the database
     public static Connection connect() {
-        Connection connection = null;
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Database connected successfully!");
-        } catch (ClassNotFoundException e) {
-            System.out.println("MySQL JDBC Driver not found!");
+            return DriverManager.getConnection(URL, USER, PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } catch (SQLException e) {
-            System.out.println("Error connecting to the database!");
-            e.printStackTrace();
+            return null;
         }
-        return connection;
     }
 
-    
-    public static List<HBox> fetchArticles(String c) {
+    // Method to fetch articles by category
+    public static List<HBox> fetchArticles(String category) {
         List<HBox> articleUIs = new ArrayList<>();
-
-        // Default query for fetching articles
-        String query = "SELECT * FROM article";
-
-        // Add category condition if category is passed (not null or empty)
-        if (c != null && !c.isEmpty()) {
-            query += " WHERE category = ?";
-        }
+        String query = "SELECT * FROM article" + (category != null && !category.isEmpty() ? " WHERE category = ?" : "");
 
         try (Connection connection = connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
-
-            // Set the category parameter if it is provided
-            if (c != null && !c.isEmpty()) {
-                statement.setString(1, c);
+            if (category != null && !category.isEmpty()) {
+                statement.setString(1, category);
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -57,24 +41,18 @@ public class Connector {
                     String title = resultSet.getString("Title");
                     String content = resultSet.getString("content");
                     String imageUrl = resultSet.getString("ImageUrl");
-                    String category = resultSet.getString("category");
-                    String createdAt = resultSet.getString("created_at"); // Fetch created_at field
+                    String categoryResult = resultSet.getString("category");
+                    String createdAt = resultSet.getString("created_at");
 
-                    // Create Article object (JavaFX component) for each result
-                    Article article = new Article(title, content, category, imageUrl, createdAt); // Pass created_at
+                    Article article = new Article(title, content, categoryResult, imageUrl, createdAt);
                     articleUIs.add(article.getArticleHBox());
                 }
             }
-
         } catch (SQLException e) {
-            System.out.println("Error fetching articles for category: " + c);
             e.printStackTrace();
         }
-
         return articleUIs;
     }
-
-
     public static List<HBox> searchForArticles(String keyword) {
         List<HBox> articleUIs = new ArrayList<>();
 
@@ -112,96 +90,88 @@ public class Connector {
         return articleUIs;
     }
 
-
+    // Method to authenticate a user during login
     public static boolean authenticate(String username, String password) {
-        // Query to retrieve the stored password hash for the given username
-        String query = "SELECT passkey FROM users WHERE username = ?";
-        
+        String query = "SELECT id, passkey, email, role FROM users WHERE username = ?";
+
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, username);  // Set the username parameter
-            
+            stmt.setString(1, username);
+
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
-                    // Get the stored hashed password from the database
                     String storedHashedPassword = rs.getString("passkey");
-                    
-                    // Hash the input password using the same hashing method as when storing
                     String hashedInputPassword = hashPassword(password);
-                    
-                    // Compare the stored hashed password with the hashed input password
-                    return storedHashedPassword.equals(hashedInputPassword);
+
+                    if (storedHashedPassword.equals(hashedInputPassword)) {
+                        // Successful login, fetch user details
+                        int userId = rs.getInt("id");
+                        String email = rs.getString("email");
+                        String role = rs.getString("role");
+
+                        // Set session data
+                        UserSession.id = userId;
+                        UserSession.username = username;
+                        UserSession.email = email;
+                        UserSession.role = role;
+                        UserSession.isConnected = true;
+                        UserSession.createdAt = java.time.LocalDateTime.now().toString();  // Store current timestamp (date + time)
+
+                        return true;  // Authentication successful
+                    }
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        return false;  // Return false if username does not exist or authentication fails
+        return false;  // Authentication failed
     }
 
-    public static boolean isUsernameTaken(String username) {
-        String query = "SELECT * FROM users WHERE username = ?";
+
+    // Method to handle user signup
+    public static boolean signupUser(String username, String password, String email) {
+        if (password.length() < 12 || !email.matches("^[A-Za-z0-9+_.-]+@(.+)$") || isUsernameTaken(username)) {
+            showError("Validation Failed", "Ensure password is 12+ characters, valid email, and username isn't taken.");
+            return false;
+        }
+
+        String hashedPassword = hashPassword(password);
+        if (hashedPassword == null) return false;
+
+        String query = "INSERT INTO users (username, passkey, email) VALUES (?, ?, ?)";
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
+            stmt.setString(2, hashedPassword);
+            stmt.setString(3, email);
             
-            try (ResultSet rs = stmt.executeQuery()) {
-                return rs.next();  // Returns true if a user with the matching username is found
+            if (stmt.executeUpdate() > 0) {
+                UserSession.username = username;
+                UserSession.email = email;
+                UserSession.isConnected = true;
+                saveUser(username, email);  // Save additional user data
+                return true;
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
         return false;
     }
-    
-    public static boolean signupUser(String username, String password, String email) {
-        // Validate the password length (e.g., minimum 12 characters)
-        if (password.length() < 12) {
-            showError("Password too short", "Password must be at least 12 characters.");
-            return false;
-        }
-        
-        // Check if the username already exists
-        if (isUsernameTaken(username)) {
-            showError("Username already exists", "The username you provided is already taken.");
-            return false;
-        }
-        
-        // Optional: Validate the email format (simple regex)
-        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
-            showError("Invalid email", "Please provide a valid email address.");
-            return false;
-        }
 
-        // Hash the password before inserting into the database
-        String hashedPassword = hashPassword(password);
-        if (hashedPassword == null) {
-            showError("Error", "An error occurred while hashing the password.");
-            return false;
-        }
-
-        // If validations pass, insert the new user into the database
-        String query = "INSERT INTO users (username, passkey, email) VALUES (?, ?, ?)";
+    // Method to check if the username already exists
+    static boolean isUsernameTaken(String username) {
+        String query = "SELECT * FROM users WHERE username = ?";
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
-            stmt.setString(2, hashedPassword);  // Store the hashed password
-            stmt.setString(3, email);
-            
-            int rowsAffected = stmt.executeUpdate();
-            if (rowsAffected > 0) {
-                // User has been successfully registered
-                System.out.println("User registered successfully.");
-            } else {
-                showError("Registration Failed", "Something went wrong during registration.");
+            try (ResultSet rs = stmt.executeQuery()) {
+                return rs.next();
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            showError("Database Error", "An error occurred while connecting to the database.");
         }
-		return true;
+        return false;
     }
 
-    // Method to hash the password using SHA-256
-    private static String hashPassword(String password) {
+    // Method to hash passwords securely
+    public static String hashPassword(String password) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
             byte[] hashedBytes = md.digest(password.getBytes());
@@ -212,7 +182,7 @@ public class Connector {
         }
     }
 
-    // Convert byte array to hex string
+    // Method to convert byte array to hex string
     private static String bytesToHex(byte[] bytes) {
         StringBuilder hexString = new StringBuilder();
         for (byte b : bytes) {
@@ -220,15 +190,112 @@ public class Connector {
         }
         return hexString.toString();
     }
-    
+
+    // Method to display error alerts
     public static void showError(String title, String message) {
-        // Create an alert to show the error message
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(title);
-        alert.setHeaderText(null);  // No header text
-        alert.setContentText(message);  // The error message
-        alert.showAndWait();  // Show the alert and wait for user to dismiss it
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 
-}
+    // Method to save user information in the database
+    public static void saveUser(String username, String email) {
+        String query = "INSERT INTO users (username, email, status, role, active) VALUES (?, ?, ?, ?, ?)";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, username);
+            stmt.setString(2, email);
+            stmt.setString(3, "Active");
+            stmt.setString(4, "User");
+            stmt.setBoolean(5, true);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
+    // Method to check if a user is logged in
+    public static boolean isUserLoggedIn() {
+        return UserSession.username != null && UserSession.isConnected;
+    }
+
+    // Method to logout the user and clear session
+    public static void logout() {
+        UserSession.username = null;
+        UserSession.email = null;
+        UserSession.isConnected = false;
+    }
+
+    // Method to update username in the database
+    public static boolean updateUsername(int userId, String newUsername) {
+        String query = "UPDATE users SET username = ? WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, newUsername);
+            stmt.setInt(2, userId);
+            
+            if (stmt.executeUpdate() > 0) {
+                return true;  // Update successful
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Update failed
+    }
+
+    // Method to update email in the database
+    public static boolean updateEmail(int userId, String newEmail) {
+        String query = "UPDATE users SET email = ? WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, newEmail);
+            stmt.setInt(2, userId);
+            
+            if (stmt.executeUpdate() > 0) {
+                return true;  // Update successful
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Update failed
+    }
+
+    // Method to change password: first checks the old password, then updates with the new password
+    public static boolean changePassword(int userId, String oldPassword, String newPassword) {
+        String query = "SELECT passkey FROM users WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, userId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    String storedHashedPassword = rs.getString("passkey");
+                    if (storedHashedPassword.equals(hashPassword(oldPassword))) {
+                        // Update with new password
+                        return updatePassword(userId, newPassword);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Old password is incorrect or update failed
+    }
+
+    // Method to update password in the database
+    private static boolean updatePassword(int userId, String newPassword) {
+        String hashedPassword = hashPassword(newPassword);
+        if (hashedPassword == null) {
+            return false;
+        }
+        
+        String query = "UPDATE users SET passkey = ? WHERE id = ?";
+        try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, hashedPassword);
+            stmt.setInt(2, userId);
+            
+            if (stmt.executeUpdate() > 0) {
+                return true;  // Update successful
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Update failed
+    }
+}

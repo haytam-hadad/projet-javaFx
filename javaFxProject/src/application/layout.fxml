@@ -16,11 +16,23 @@
     <top>
         <HBox fx:id="topSection" alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="690.0" spacing="20.0" style="-fx-background-color: brown; -fx-padding: 10px;">
             <children>
-                <Label fx:id="appTitleLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="32.0" prefWidth="426.0" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text=" 🌍 World News" HBox.hgrow="ALWAYS">
+                <Label fx:id="appTitleLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="45.0" prefWidth="404.0" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text=" 🌍 World News" HBox.hgrow="ALWAYS">
                     <font>
                         <Font size="25.0" />
                     </font>
                 </Label>
+
+                <!-- User Info (Initially Hidden) -->
+                <Label fx:id="userNameLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="105.0" style="-fx-font-size: 16px; -fx-text-fill: white; -fx-font-weight: bold;" textAlignment="CENTER" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+                <Label fx:id="userEmailLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="221.0" style="-fx-font-size: 16px; -fx-text-fill: white; -fx-font-weight: bold;" textAlignment="CENTER" visible="false">
+               <font>
+                  <Font size="10.0" />
+               </font></Label>
+                
+                      <!-- Login and Signup Buttons -->
                 <Button fx:id="loginButton" maxHeight="1.7976931348623157E308" prefWidth="80.0" style="-fx-font-weight: bold; -fx-background-color: #222; -fx-background-radius: 10px; -fx-text-fill: #fff;" text="Log in" HBox.hgrow="ALWAYS">
                     <cursor>
                         <Cursor fx:constant="HAND" />
@@ -55,11 +67,11 @@
                                 <Cursor fx:constant="HAND" />
                             </cursor>
                         </Button>
-                  <Button fx:id="profileButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text="👤 Profile">
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </Button>
+                        <Button fx:id="profileButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text="👤 Profile">
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </Button>
                         <Button fx:id="searchPage" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: #222; -fx-text-fill: #fff;" text=" 🔎 Search">
                             <cursor>
                                 <Cursor fx:constant="HAND" />

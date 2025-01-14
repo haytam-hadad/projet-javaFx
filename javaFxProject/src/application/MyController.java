@@ -5,14 +5,15 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import java.io.IOException;
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.scene.control.ScrollPane;
+
 
 public class MyController {
 
@@ -27,7 +28,7 @@ public class MyController {
 
     @FXML
     private Button homeButton;
-    
+
     @FXML
     private Button profileButton;
 
@@ -48,70 +49,102 @@ public class MyController {
 
     @FXML
     private Button techButton;
-    
+
+    @FXML
+    private Label userNameLabel;
+
+    @FXML
+    private Label userEmailLabel;
+
+    @FXML
+    private HBox topSection;
+
     @FXML
     private void initialize() {
-    	
         // Set initial page (Home)
-    	showArticles(null);
-        
-        getLoginButton().setOnAction(event -> loadLogContent());
-        getSignupButton().setOnAction(event -> loadSignContent());
-        
-        //SideMenu
-        profileButton.setOnAction(event -> loadPage("userPage.fxml"));
+        showArticles(null);
+
+        // Set login and signup button actions
+        loginButton.setOnAction(event -> loadLogContent());
+        signupButton.setOnAction(event -> loadSignContent());
+
+        // Side menu actions
+        profileButton.setOnAction(event -> loadProfilePage());
         searchPage.setOnAction(event -> loadPage("Search.fxml"));
         homeButton.setOnAction(event -> showArticles(null));
         techButton.setOnAction(event -> showArticles("Tech"));
         politicsButton.setOnAction(event -> showArticles("Politics"));
         sportsButton.setOnAction(event -> showArticles("Sports"));
+
+        // Update UI based on user login status
+        updateUIBasedOnLoginStatus();
     }
-    
+
+    private void loadPageContent(String fxmlPage) {
+        clearContent();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPage));
+            Node pageContent = loader.load();
+            contentArea.getChildren().add(pageContent);
+        } catch (IOException e) {
+            e.printStackTrace();
+            showErrorAlert("Error", "An error occurred while loading the page.");
+        }
+    }
+
     private void loadLogContent() {
-        // Clear only the content area (not the side menu)
-        contentArea.getChildren().clear();
-        
-        try {
-            // Load the login page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("authentification.fxml"));
-            Parent loginContent = loader.load();
-            
-            AuthMyController authController = loader.getController();
-            authController.setMyController(this);
-            
-            // Add the login page to the content area
-            contentArea.getChildren().add(loginContent);
-            
-            // Hide login and signup buttons
+        loadPageContent("authentification.fxml");
+    }
+
+    private void loadSignContent() {
+        loadPageContent("Signing.fxml");
+    }
+
+    private void updateUIBasedOnLoginStatus() {
+        if (UserSession.isConnected()) {
+            // Hide login and signup buttons when the user is logged in
             loginButton.setVisible(false);
             signupButton.setVisible(false);
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            // Display the logged-in user's username and email
+            userNameLabel.setText("👤 " + UserSession.getUsername());
+            userEmailLabel.setText("📧 " + UserSession.getEmail());
+
+            // Make labels visible when the user is logged in
+            userNameLabel.setVisible(true);
+            userEmailLabel.setVisible(true);
+        } else {
+            // Show login and signup buttons when the user is not logged in
+            loginButton.setVisible(true);
+            signupButton.setVisible(true);
+
+            // Clear the labels and hide them when the user is logged out
+            userNameLabel.setText("");
+            userEmailLabel.setText("");
+            userNameLabel.setVisible(false);
+            userEmailLabel.setVisible(false);
         }
     }
-    
-    private void loadSignContent(){
-    	// Clear only the content area (not the side menu)
-        contentArea.getChildren().clear();
-        
-        try {
-            // Load the login page
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("Signing.fxml"));
-            Parent signinContent = loader.load();
-            
-            // Add the login page to the content area
-            contentArea.getChildren().add(signinContent);
-            
-            // Hide login and signup buttons
-            loginButton.setVisible(false);
-            signupButton.setVisible(false);
-            
-        } catch (IOException e) {
-            e.printStackTrace();
+
+
+
+
+    private void loadProfilePage() {
+        if (!UserSession.isConnected()) {  // Correct method here
+            showNotConnectedAlert();
+        } else {
+            loadPage("userPage.fxml");
         }
     }
-    
+
+    private void showNotConnectedAlert() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Not Connected");
+        alert.setHeaderText("You need to be logged in to access this page.");
+        alert.setContentText("Please log in first.");
+        alert.showAndWait();
+    }
+
     public void clearContent() {
         contentArea.getChildren().clear();
     }
@@ -120,80 +153,80 @@ public class MyController {
         clearContent();
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(page));
-            Node pageContent = loader.load(); // Node will work for any type of root element
+            Node pageContent = loader.load();
             contentArea.getChildren().add(pageContent);
         } catch (IOException e) {
             e.printStackTrace();
+            showErrorAlert("Error", "An error occurred while loading the page.");
         }
     }
 
     public void showArticles(String category) {
-        contentArea.getChildren().clear();  // Clear any existing content
-        
+        contentArea.getChildren().clear();
+
         // Create a dynamic title based on the category
         Label titleLabel = new Label("Top " + (category == null ? "World" : category) + " News");
         titleLabel.setStyle("-fx-font-size: 24px; " +
                              "-fx-font-weight: bold; " +
-                             "-fx-text-fill: white; " +  // Set text color to white
-                             "-fx-background-color: #222; " +  // Set background color to #222
+                             "-fx-text-fill: white; " +
+                             "-fx-background-color: #222; " +
                              "-fx-padding: 10px; " +
-                             "-fx-max-width: Infinity; " +  // Ensure label stretches to fill the width
-                             "-fx-alignment: center;");  // Center the text horizontally
+                             "-fx-max-width: Infinity; " +
+                             "-fx-alignment: center;");
 
-        
         // Fetch articles for the given category
-        List<HBox> articles = Connector.fetchArticles(category);  // Assuming you have this method for fetching by category
+        List<HBox> articles = Connector.fetchArticles(category);
 
-        // Create a VBox to hold the title and articles
         VBox pageContainer = new VBox();
-        pageContainer.setSpacing(20);  // Optional: adjust the spacing between title and articles
-        pageContainer.getChildren().add(titleLabel);  // Add the title at the top
-        
-        // Create a VBox to hold the articles and wrap them in a ScrollPane
-        VBox articlesContainer = new VBox();
-        articlesContainer.setSpacing(10);  // Optional: add spacing between articles
-        articlesContainer.getChildren().addAll(articles);  // Add the articles to the container
+        pageContainer.setSpacing(20);
+        pageContainer.getChildren().add(titleLabel);
 
-        // Create a ScrollPane and set the VBox with articles as its content
+        VBox articlesContainer = new VBox();
+        articlesContainer.setSpacing(10);
+        articlesContainer.getChildren().addAll(articles);
+
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setContent(articlesContainer);
-        scrollPane.setFitToWidth(true);  // Ensure content fits to width of the ScrollPane
-        scrollPane.setFitToHeight(true); // Ensure content fits to height of the ScrollPane
-        scrollPane.setStyle("-fx-padding: 20px;");  // Set padding for all sides (top, right, bottom, left)
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
+        scrollPane.setStyle("-fx-padding: 20px;");
 
-        // Check if any articles were returned
+        // If no articles are returned, display a message
         if (articles.isEmpty()) {
             Label noArticlesLabel = new Label("No articles available for this category.");
             pageContainer.getChildren().add(noArticlesLabel);
         } else {
-            pageContainer.getChildren().add(scrollPane);  // Add the ScrollPane containing articles to the container
+            pageContainer.getChildren().add(scrollPane);
         }
 
-        // Add the page container (with title and articles) to the content area
         contentArea.getChildren().add(pageContainer);
     }
 
-	public Button getSignupButton() {
-		return signupButton;
-	}
-
-	public void setSignupButton(Button signupButton) {
-		this.signupButton = signupButton;
-	}
-
-	public Button getLoginButton() {
-		return loginButton;
-	}
-
-	public void setLoginButton(Button loginButton) {
-		this.loginButton = loginButton;
-	}
-	
-	public StackPane getContentArea() {
-        return contentArea;
+    private void showErrorAlert(String title, String content) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 
+    public Button getSignupButton() {
+        return signupButton;
+    }
 
+    public void setSignupButton(Button signupButton) {
+        this.signupButton = signupButton;
+    }
 
-    
+    public Button getLoginButton() {
+        return loginButton;
+    }
+
+    public void setLoginButton(Button loginButton) {
+        this.loginButton = loginButton;
+    }
+
+    public StackPane getContentArea() {
+        return contentArea;
+    }
 }
