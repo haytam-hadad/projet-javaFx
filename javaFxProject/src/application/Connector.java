@@ -26,14 +26,17 @@ public class Connector {
     }
 
     // Method to fetch articles by category
+    
     public static List<HBox> fetchArticles(String category) {
         List<HBox> articleUIs = new ArrayList<>();
-        String query = "SELECT * FROM article" + (category != null && !category.isEmpty() ? " WHERE category = ?" : "");
+        String query = "SELECT a.*, u.username FROM article a " +
+                       "JOIN users u ON a.userID = u.Id" +  // Join articles with users based on userID
+                       (category != null && !category.isEmpty() ? " WHERE a.category = ?" : "");
 
         try (Connection connection = connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
             if (category != null && !category.isEmpty()) {
-                statement.setString(1, category);
+                statement.setString(1, category); // Set category parameter if provided
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -43,8 +46,10 @@ public class Connector {
                     String imageUrl = resultSet.getString("ImageUrl");
                     String categoryResult = resultSet.getString("category");
                     String createdAt = resultSet.getString("created_at");
+                    String author = resultSet.getString("username");  // Fetching the author's username
 
-                    Article article = new Article(title, content, categoryResult, imageUrl, createdAt);
+                    // Pass the author's name to the Article constructor
+                    Article article = new Article(title, content, categoryResult, imageUrl, createdAt, author);
                     articleUIs.add(article.getArticleHBox());
                 }
             }
@@ -53,11 +58,14 @@ public class Connector {
         }
         return articleUIs;
     }
+    
     public static List<HBox> searchForArticles(String keyword) {
         List<HBox> articleUIs = new ArrayList<>();
 
-        // SQL query to search for articles by matching title, content, or category
-        String query = "SELECT * FROM article WHERE title LIKE ? OR content LIKE ? OR category LIKE ?";
+        // SQL query to search for articles by matching title, content, or category, and join with users to get the username
+        String query = "SELECT a.*, u.username FROM article a " +
+                       "JOIN users u ON a.userID = u.Id " +  // Join articles with users based on userID
+                       "WHERE a.title LIKE ? OR a.content LIKE ? OR a.category LIKE ?";
 
         try (Connection connection = connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
@@ -74,10 +82,11 @@ public class Connector {
                     String content = resultSet.getString("content");
                     String imageUrl = resultSet.getString("ImageUrl");
                     String category = resultSet.getString("category");
-                    String createdAt = resultSet.getString("created_at"); // Fetch created_at field
+                    String createdAt = resultSet.getString("created_at");  // Fetch created_at field
+                    String author = resultSet.getString("username");  // Fetching the author's username
 
                     // Create Article object (JavaFX component) for each result
-                    Article article = new Article(title, content, category, imageUrl, createdAt); // Pass created_at
+                    Article article = new Article(title, content, category, imageUrl, createdAt, author); // Pass created_at and author
                     articleUIs.add(article.getArticleHBox());
                 }
             }
@@ -89,6 +98,8 @@ public class Connector {
 
         return articleUIs;
     }
+
+
 
     // Method to authenticate a user during login
     public static boolean authenticate(String username, String password) {

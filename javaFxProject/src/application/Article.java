@@ -1,16 +1,15 @@
 package application;
 
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.geometry.Pos;
-import javafx.scene.layout.Priority;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 public class Article {
 
@@ -20,9 +19,10 @@ public class Article {
     private Label contentLabel;
     private Label categoryLabel;
     private Label createdAtLabel;
+    private Label authorLabel;  // Added label for the author
     private ImageView articleImageView;
 
-    public Article(String title, String content, String category, String imageUrl, String createdAt) {
+    public Article(String title, String content, String category, String imageUrl, String createdAt, String author) {
         // Initialize HBox for the overall layout
         articleHBox = new HBox();
         articleHBox.setSpacing(10);
@@ -35,7 +35,7 @@ public class Article {
                              "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.05), 10, 0.2, 0, 4);");
         articleHBox.setAlignment(Pos.CENTER);
 
-        // Text container (VBox for title, created_at, content, and category)
+        // Text container (VBox for title, created_at, content, category, and author)
         textVBox = new VBox();
         textVBox.setSpacing(15);
         textVBox.setStyle("-fx-font-family: 'Arial', sans-serif; -fx-padding: 0 10px 10px 10px");
@@ -76,8 +76,29 @@ public class Article {
         categoryLabel.setStyle("-fx-font-weight: bold; -fx-font-size: 14px; -fx-text-fill: brown; -fx-font-style: italic;");
         categoryLabel.setAlignment(Pos.BOTTOM_LEFT);
 
-        // Add title, created_at, content, and category elements to VBox
-        textVBox.getChildren().addAll(titleLabel, createdAtLabel, contentLabel, categoryLabel);
+        // Create a new HBox to align the author and category on the same line
+        HBox authorCategoryHBox = new HBox();
+        authorCategoryHBox.setSpacing(10);
+        authorCategoryHBox.setAlignment(Pos.CENTER_LEFT);  // Align items to the left for the category
+
+        // Category on the left
+        categoryLabel.setAlignment(Pos.CENTER_LEFT);
+        authorCategoryHBox.getChildren().add(categoryLabel);
+
+        // Add separator " | "
+        Label separatorLabel = new Label(" | ");
+        separatorLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: #7f8c8d;");
+        authorCategoryHBox.getChildren().add(separatorLabel);
+
+        // Author on the right
+        authorLabel = new Label("By: " + author);  // Display author's name
+        authorLabel.setStyle("-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;");
+        authorLabel.setAlignment(Pos.CENTER_RIGHT);
+        HBox.setHgrow(authorLabel, Priority.ALWAYS);  // Allow author label to take available space
+        authorCategoryHBox.getChildren().add(authorLabel);
+
+        // Add title, created_at, content, and author/category HBox to VBox
+        textVBox.getChildren().addAll(titleLabel, createdAtLabel, contentLabel, authorCategoryHBox);
 
         // Add image only if URL is not null or empty
         if (imageUrl != null && !imageUrl.isEmpty()) {
