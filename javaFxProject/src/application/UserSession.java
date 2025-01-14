@@ -49,7 +49,6 @@ public class UserSession {
     public static String getCreatedAt() {
         return createdAt;
     }
-
     
 
     public static boolean isConnected() {

@@ -1,10 +1,13 @@
 package application;
 
-import javafx.fxml.FXML;
-import javafx.scene.control.*;
-
-import java.io.IOException;
 import java.util.Optional;
+
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 public class UserDashboardController {
 
@@ -28,12 +31,18 @@ public class UserDashboardController {
 
     @FXML
     private TextField newPasswordField;
+    
+    @FXML
+    private TextField confirmPasswordField;
 
     @FXML
     private Button updateUsernameButton;
 
     @FXML
     private Button updateEmailButton;
+    
+    @FXML
+    private Button updatePasswordButton;
 
     @FXML
     private Button changePasswordButton;
@@ -43,7 +52,6 @@ public class UserDashboardController {
 
     @FXML
     public void initialize() {
-        // Use default values if the labels or UserSession values are null
         String username = UserSession.getUsername();
         String email = UserSession.getEmail();
         String createdAt = UserSession.getCreatedAt();
@@ -55,7 +63,7 @@ public class UserDashboardController {
         // Initialize button actions
         if (updateUsernameButton != null) updateUsernameButton.setOnAction(event -> updateUsername());
         if (updateEmailButton != null) updateEmailButton.setOnAction(event -> updateEmail());
-        if (changePasswordButton != null) changePasswordButton.setOnAction(event -> changePassword());
+        if (updatePasswordButton != null) updatePasswordButton.setOnAction(event -> changePassword());
         if (logoutButton != null) logoutButton.setOnAction(event -> logout());
     }
 
@@ -85,8 +93,6 @@ public class UserDashboardController {
     }
 
     private void updateUsername() {
-        if (newUsernameField == null || usernameLabel == null) return;
-
         String newUsername = newUsernameField.getText();
         if (!isInputValid(newUsername, "Username")) return;
 
@@ -95,7 +101,8 @@ public class UserDashboardController {
             if (Connector.updateUsername(UserSession.getId(), newUsername)) {
                 UserSession.setUsername(newUsername);
                 usernameLabel.setText(newUsername);
-                System.out.println("Username updated successfully.");
+                clearInputFields();
+                showSuccessDialog("Username updated successfully.");
             } else {
                 showErrorDialog("Update Failed", "Failed to update username. Please try again.");
             }
@@ -103,8 +110,6 @@ public class UserDashboardController {
     }
 
     private void updateEmail() {
-        if (newEmailField == null || emailLabel == null) return;
-
         String newEmail = newEmailField.getText();
         if (!isInputValid(newEmail, "Email")) return;
 
@@ -113,7 +118,8 @@ public class UserDashboardController {
             if (Connector.updateEmail(UserSession.getId(), newEmail)) {
                 UserSession.setEmail(newEmail);
                 emailLabel.setText(newEmail);
-                System.out.println("Email updated successfully.");
+                clearInputFields();
+                showSuccessDialog("Email updated successfully.");
             } else {
                 showErrorDialog("Update Failed", "Failed to update email. Please try again.");
             }
@@ -121,8 +127,6 @@ public class UserDashboardController {
     }
 
     private void changePassword() {
-        if (oldPasswordField == null || newPasswordField == null) return;
-
         String oldPassword = oldPasswordField.getText();
         String newPassword = newPasswordField.getText();
         if (!isInputValid(oldPassword, "Old Password") || !isInputValid(newPassword, "New Password")) return;
@@ -132,6 +136,7 @@ public class UserDashboardController {
             if (Connector.changePassword(UserSession.getId(), oldPassword, newPassword)) {
                 System.out.println("Password updated successfully.");
                 UserSession.logout();
+                clearInputFields();
             } else {
                 showErrorDialog("Password Change Failed", "The old password you entered is incorrect. Please try again.");
             }
@@ -139,18 +144,28 @@ public class UserDashboardController {
     }
 
     private void logout() {
-        if (showConfirmationDialog("Logout", "Are you sure you want to log out?",
-                "You will be logged out of your account.")) {
-            // Clear the user session
+        if (showConfirmationDialog("Logout", "Are you sure you want to log out?", "You will be logged out of your account.")) {
             UserSession.logout();
             System.out.println("Logging out...");
-
-            // Close the current application window
-            System.exit(0);  // This will terminate the app
+            System.exit(0);  // You can replace this with primaryStage.close() in a more complex app
         } else {
             System.out.println("Logout canceled.");
         }
     }
 
+    private void clearInputFields() {
+        newUsernameField.clear();
+        newEmailField.clear();
+        oldPasswordField.clear();
+        newPasswordField.clear();
+        confirmPasswordField.clear();
+    }
 
+    private void showSuccessDialog(String message) {
+        Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+        successAlert.setTitle("Success");
+        successAlert.setHeaderText(null);
+        successAlert.setContentText(message);
+        successAlert.showAndWait();
+    }
 }

@@ -133,7 +133,7 @@
                      <Label style="-fx-font-weight: bold; -fx-font-size: 20;" text="🔒 Update Password" />
                      <VBox alignment="CENTER" spacing="10.0">
                         <children>
-                           <TextField fx:id="currentPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter current password" style="-fx-background-color: #f1f1f1;" />
+                           <TextField fx:id="oldPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter current password" style="-fx-background-color: #f1f1f1;" />
                            <TextField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter new password" style="-fx-background-color: #f1f1f1;" />
                            <TextField fx:id="confirmPasswordField" maxWidth="1.7976931348623157E308" promptText="Confirm new password" style="-fx-background-color: #f1f1f1;" />
                         </children>

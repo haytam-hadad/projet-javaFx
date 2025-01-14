@@ -53,6 +53,7 @@
             <children>
                 <Label fx:id="footerLabel" style="-fx-text-fill: white;" text="© 2025 World News" />
                 <Label fx:id="contactLabel" style="-fx-text-fill: white;" text="Contact: info@worldnews.com" />
+            <Label fx:id="contactLabel1" style="-fx-text-fill: white;" text="Version: 1.0.0" />
             </children>
         </HBox>
     </bottom>
