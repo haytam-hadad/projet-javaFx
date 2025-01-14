@@ -53,6 +53,8 @@ public class SearchController {
             noResultsLabel.setVisible(true);
         } else {
             // Add the articles to a new VBox
+            noResultsLabel.setText(articles.size() + " result" + (articles.size() == 1 ? "" : "s") + " found.");
+            noResultsLabel.setVisible(true); 
             VBox resultsVBox = new VBox(10);
             resultsVBox.setStyle("-fx-background-color: #fff");
             resultsVBox.getChildren().addAll(articles);

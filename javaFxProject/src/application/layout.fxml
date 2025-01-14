@@ -10,11 +10,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="547.0" prefWidth="913.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MyController">
+<BorderPane prefHeight="562.0" prefWidth="926.0" style="-fx-background-color: #fff;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MyController">
 
     <!-- Top Section -->
     <top>
-        <HBox fx:id="topSection" alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="690.0" spacing="10.0" style="-fx-background-color: brown; -fx-padding: 10px;">
+        <HBox fx:id="topSection" alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="690.0" spacing="20.0" style="-fx-background-color: brown; -fx-padding: 10px;">
             <children>
                 <Label fx:id="appTitleLabel" alignment="TOP_LEFT" maxWidth="1.7976931348623157E308" minWidth="0.0" prefHeight="32.0" prefWidth="426.0" style="-fx-font-size: 30px; -fx-font-weight: bold; -fx-text-fill: white;" text=" 🌍 World News" HBox.hgrow="ALWAYS">
                     <font>
@@ -46,9 +46,9 @@
     </bottom>
 
     <center>
-        <SplitPane fx:id="mainSplitPane" dividerPositions="0.27" prefHeight="381.0" prefWidth="673.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
+        <SplitPane fx:id="mainSplitPane" dividerPositions="0.2429602888086643" prefHeight="381.0" prefWidth="673.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
             <items>
-                <VBox fx:id="sideMenuVBox" maxWidth="450.0" spacing="5.0" style="-fx-background-color: #000; -fx-padding: 5px;" VBox.vgrow="ALWAYS">
+                <VBox fx:id="sideMenuVBox" maxWidth="450.0" spacing="5.0" style="-fx-background-color: #000; -fx-padding: 5px;" SplitPane.resizableWithParent="false" VBox.vgrow="ALWAYS">
                     <children>
                         <Button fx:id="homeButton" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-padding: 20px; -fx-font-size: 15px; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-background-color: brown; -fx-text-fill: #fff;" text=" 🏠 Home">
                             <cursor>

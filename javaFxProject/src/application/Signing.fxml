@@ -4,14 +4,16 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SigningController">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="558.0" style="-fx-padding: 30px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SigningController">
    <children>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" style="-fx-border-color: #ccc; -fx-background-color: #fff; -fx-background-radius: 20px; -fx-border-radius: 20px;">
          <children>
             <Label fx:id="signlabel" style="-fx-font-weight: bold; -fx-padding: 20px;" text="Sign In :">
                <font>
@@ -23,7 +25,8 @@
                   <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="Username :">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <TextField fx:id="userfield" prefHeight="25.0" prefWidth="297.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
@@ -32,7 +35,8 @@
                   <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="E-mail :">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <TextField fx:id="emailfield" prefHeight="25.0" prefWidth="296.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
@@ -41,7 +45,8 @@
                   <Label style="-fx-font-weight: bold; -fx-text-fill: #777;" text="Password :">
                      <font>
                         <Font size="15.0" />
-                     </font></Label>
+                     </font>
+                  </Label>
                   <PasswordField fx:id="passfield" prefHeight="25.0" prefWidth="290.0" style="-fx-font-weight: bold; -fx-background-radius: 5px; -fx-border-radius: 5px; -fx-padding: 5px;" />
                </children>
             </HBox>
@@ -55,6 +60,13 @@
                </children>
             </HBox>
          </children>
+         <effect>
+            <DropShadow radius="39.7875" width="140.15">
+               <color>
+                  <Color red="0.8508771657943726" green="0.8508771657943726" blue="0.8508771657943726" />
+               </color>
+            </DropShadow>
+         </effect>
       </VBox>
    </children>
 </StackPane>

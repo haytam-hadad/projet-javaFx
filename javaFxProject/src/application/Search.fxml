@@ -4,22 +4,24 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="201.0" prefWidth="521.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController" fx:id="mainVBox">
+<VBox fx:id="mainVBox" alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="229.0" prefWidth="547.0" spacing="10.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.SearchController">
     <children>
-        <VBox maxWidth="1.7976931348623157E308" prefHeight="151.0" prefWidth="501.0" style="-fx-padding: 15px; -fx-background-color: brown; -fx-background-radius: 10px;" fx:id="headerVBox">
+        <VBox fx:id="headerVBox" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="167.0" prefWidth="501.0" style="-fx-padding: 20px 70px; -fx-background-color: #fff; -fx-border-color: brown; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-border-width: 2px;" VBox.vgrow="NEVER">
             <children>
-                <Label alignment="CENTER" cache="true" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-text-fill: #fff; -fx-padding: 20px 0;" text="Search for the latest news and Articles" textAlignment="CENTER" textOverrun="CLIP" underline="true" wrapText="true" fx:id="headerLabel">
+                <Label fx:id="headerLabel" alignment="CENTER" cache="true" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" prefHeight="76.0" prefWidth="446.0" style="-fx-font-size: 25px; -fx-font-weight: bold; -fx-padding: 20px 0;" text="Search For The Latest News" textAlignment="CENTER" textOverrun="CLIP" wrapText="true">
                     <font>
                         <Font size="30.0" />
                     </font>
                 </Label>
-                <HBox alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="445.0" style="-fx-background-color: #222; -fx-border-color: #222; -fx-background-radius: 10px; -fx-border-radius: 10px;" fx:id="searchHBox">
+                <HBox fx:id="searchHBox" alignment="CENTER" maxWidth="1.7976931348623157E308" prefHeight="25.0" prefWidth="445.0" style="-fx-background-color: #222; -fx-border-color: #222; -fx-background-radius: 10px; -fx-border-radius: 10px;">
                     <children>
-                        <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Enter keyword..." style="-fx-background-color: #fff; -fx-border-color: #222222; -fx-padding: 0 20px; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
+                        <TextField fx:id="searchField" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="Enter keyword..." style="-fx-background-color: #f1f1f1; -fx-border-color: #222222; -fx-padding: 0 20px; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         <Button fx:id="submitSearch" prefHeight="32.0" prefWidth="86.0" style="-fx-background-color: #222; -fx-font-weight: bold; -fx-font-size: 15px; -fx-background-radius: 10px; -fx-border-radius: 10px; -fx-text-fill: #fff;" text="Search 🔎" HBox.hgrow="ALWAYS">
                             <font>
                                 <Font size="15.0" />
@@ -31,15 +33,22 @@
                     </children>
                 </HBox>
             </children>
+         <effect>
+            <DropShadow height="85.45" radius="58.334999999999994" width="149.89">
+               <color>
+                  <Color red="0.8333333134651184" green="0.8333333134651184" blue="0.8333333134651184" />
+               </color>
+            </DropShadow>
+         </effect>
         </VBox>
 
         <!-- No Results Label (for displaying "No results found") -->
-        <Label fx:id="noResultsLabel" style="-fx-font-weight: bold; -fx-text-fill: red;" text="" visible="false">
+        <Label fx:id="noResultsLabel" alignment="CENTER" contentDisplay="CENTER" prefHeight="28.0" prefWidth="344.0" style="-fx-font-weight: bold; -fx-text-fill: brown;" text="" textAlignment="CENTER" visible="false">
             <font>
                 <Font size="19.0" />
             </font>
         </Label>
-        <VBox fx:id="searchResultsVBox" spacing="10.0" style="-fx-padding: 10px;">
+        <VBox fx:id="searchResultsVBox" spacing="10.0" style="-fx-padding: 5px;">
             <!-- Articles will be dynamically added here -->
         </VBox>
     </children>

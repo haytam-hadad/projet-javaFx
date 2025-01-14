@@ -12,7 +12,7 @@
 
 <BorderPane maxHeight="1.7976931348623157E308" prefHeight="490.0" prefWidth="673.0" style="-fx-background-color: #f8f9fa;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.UserDashboardController">
    <left>
-      <VBox prefHeight="420.0" prefWidth="171.0" spacing="20.0" style="-fx-background-color: #fff; -fx-padding: 10; -fx-border-color: #eee;">
+      <VBox prefHeight="437.0" prefWidth="172.0" spacing="20.0" style="-fx-background-color: #fff; -fx-padding: 10; -fx-border-color: #ddd;">
          <children>
             <Label alignment="CENTER" contentDisplay="CENTER" maxWidth="1.7976931348623157E308" style="-fx-font-weight: bold; -fx-text-fill: #aaa;" text="Dashboard" wrapText="true">
                <font>
@@ -22,28 +22,34 @@
             <Separator prefWidth="200.0" />
             <Label style="-fx-padding: 5px;" text="Profile">
                <font>
-                  <Font size="15.0" />
+                  <Font size="13.0" />
                </font>
             </Label>
-            <Label style="-fx-padding: 5px;" text="change Password">
+            <Label style="-fx-padding: 5px;" text="Change Username">
                <font>
-                  <Font size="15.0" />
+                  <Font size="13.0" />
+               </font>
+            </Label>
+            <Label style="-fx-padding: 5px;" text="Change Email">
+               <font>
+                  <Font size="13.0" />
                </font>
             </Label>
             <Label style="-fx-padding: 5px;" text="Change Password">
                <font>
-                  <Font size="15.0" />
+                  <Font size="13.0" />
                </font>
             </Label>
+            <Button fx:id="logoutButton1" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 10px; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: brown;" text="Post article  ➕" textAlignment="CENTER" />
             <Separator prefWidth="200.0" />
-            <Button fx:id="logoutButton" style="-fx-background-color: transparent; -fx-text-fill: brown; -fx-font-weight: bold; -fx-font-size: 14; -fx-alignment: CENTER_LEFT;" text="Logout" />
+            <Button fx:id="logoutButton" prefHeight="40.0" prefWidth="73.0" style="-fx-background-color: transparent; -fx-text-fill: brown; -fx-font-weight: bold; -fx-padding: 10px; -fx-font-size: 14; -fx-alignment: CENTER_LEFT;" text="Log out" />
          </children>
       </VBox>
    </left>
    <top>
-      <HBox alignment="CENTER_LEFT" prefHeight="70.0" spacing="10.0" style="-fx-font-size: bold; -fx-background-color: #222; -fx-padding: 5px;">
+      <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="673.0" spacing="10.0" style="-fx-font-size: bold; -fx-background-color: #222; -fx-padding: 5px;">
          <children>
-            <Label style="-fx-font-weight: bold; -fx-text-fill: white;" text="  Welcome, User">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="36.0" prefWidth="259.0" style="-fx-font-weight: bold; -fx-text-fill: white;" text="Welcome, User">
                <font>
                   <Font size="25.0" />
                </font>
@@ -54,26 +60,40 @@
    <center>
       <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" style="-fx-background-color: transparent;" vbarPolicy="AS_NEEDED">
          <content>
-            <VBox alignment="CENTER" spacing="30.0" style="-fx-padding: 15; -fx-background-color: #fff;">
+            <VBox alignment="CENTER" spacing="30.0" style="-fx-padding: 25; -fx-background-color: #fff;">
                <VBox alignment="CENTER" spacing="15.0" style="-fx-background-color: white; -fx-padding: 20; -fx-border-color: #bdc3c7; -fx-border-radius: 10; -fx-background-radius: 10;">
                   <children>
-                     <Label style="-fx-font-weight: bold; -fx-font-size: 20;" text="👤  Profile Information" />
-                     <HBox alignment="CENTER_LEFT" spacing="10.0">
-                        <children>
-                           <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="Full Name:" />
-                           <Label fx:id="fullNameLabel" prefWidth="300.0" text="John Doe" />
-                        </children>
-                     </HBox>
+                     <Label style="-fx-font-weight: bold; -fx-font-size: 20;" text="👤  Profile Information">
+                        <font>
+                           <Font size="15.0" />
+                        </font></Label>
+                     <HBox alignment="CENTER_LEFT" spacing="10.0" />
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="Username:" />
-                           <Label fx:id="usernameLabel" prefWidth="300.0" text="johndoe123" />
+                           <Label fx:id="usernameLabel" prefWidth="300.0" text="johndoe123">
+                              <font>
+                                 <Font size="14.0" />
+                              </font></Label>
                         </children>
                      </HBox>
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="Email:" />
-                           <Label fx:id="emailLabel" prefWidth="300.0" text="johndoe@example.com" />
+                           <Label fx:id="emailLabel" prefWidth="300.0" text="johndoe@example.com">
+                              <font>
+                                 <Font size="14.0" />
+                              </font></Label>
+                        </children>
+                     </HBox>
+                     <HBox alignment="CENTER_LEFT" spacing="10.0">
+                        <children>
+                           <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="join date:" />
+                           <Label fx:id="emailLabel1" prefWidth="300.0" text="2024-1-2">
+                              <font>
+                                 <Font size="14.0" />
+                              </font>
+                           </Label>
                         </children>
                      </HBox>
                   </children>
@@ -84,7 +104,7 @@
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="New Username:" />
-                           <TextField fx:id="newUsernameField" prefWidth="300.0" promptText="Enter new username" />
+                           <TextField fx:id="newUsernameField" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Enter new username" style="-fx-padding: 10px; -fx-background-color: #f1f1f1; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         </children>
                      </HBox>
                      <Button fx:id="updateUsernameButton" style="-fx-background-color: green; -fx-text-fill: #fff; -fx-font-weight: bold; -fx-padding: 5px 10px;" text="Update Username" />
@@ -96,7 +116,7 @@
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="New Email:" />
-                           <TextField fx:id="newEmailField" prefWidth="300.0" promptText="Enter new email" />
+                           <TextField fx:id="newEmailField" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Enter new email" style="-fx-padding: 10px; -fx-background-color: #f1f1f1; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         </children>
                      </HBox>
                      <Button fx:id="updateEmailButton" style="-fx-background-color: green; -fx-text-fill: #fff; -fx-font-weight: bold; -fx-padding: 5px 10px;" text="Update Email" />
@@ -108,13 +128,13 @@
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="Old Password:" />
-                           <TextField fx:id="oldPasswordField" prefWidth="300.0" promptText="Enter old password" />
+                           <TextField fx:id="oldPasswordField" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Enter old password" style="-fx-padding: 10px; -fx-background-color: #f1f1f1; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         </children>
                      </HBox>
                      <HBox alignment="CENTER_LEFT" spacing="10.0">
                         <children>
                            <Label prefWidth="100.0" style="-fx-font-weight: bold;" text="New Password:" />
-                           <TextField fx:id="newPasswordField" prefWidth="300.0" promptText="Enter new password" />
+                           <TextField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" prefWidth="300.0" promptText="Enter new password" style="-fx-padding: 10px; -fx-background-color: #f1f1f1; -fx-background-radius: 10px; -fx-border-radius: 10px;" HBox.hgrow="ALWAYS" />
                         </children>
                      </HBox>
                      <Button fx:id="changePasswordButton" style="-fx-background-color: green; -fx-text-fill: #fff; -fx-font-weight: bold; -fx-padding: 5px 10px;" text="Change Password" />

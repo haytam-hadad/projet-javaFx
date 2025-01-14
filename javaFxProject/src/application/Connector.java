@@ -33,24 +33,23 @@ public class Connector {
     }
 
     
- // Method to fetch articles by category
     public static List<HBox> fetchArticles(String c) {
         List<HBox> articleUIs = new ArrayList<>();
-        
+
         // Default query for fetching articles
         String query = "SELECT * FROM article";
-        
+
         // Add category condition if category is passed (not null or empty)
         if (c != null && !c.isEmpty()) {
             query += " WHERE category = ?";
         }
-        
-        try (Connection connection = connect(); 
+
+        try (Connection connection = connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             // Set the category parameter if it is provided
             if (c != null && !c.isEmpty()) {
-                statement.setString(1, c); // Setting the category parameter correctly
+                statement.setString(1, c);
             }
 
             try (ResultSet resultSet = statement.executeQuery()) {
@@ -58,11 +57,12 @@ public class Connector {
                     String title = resultSet.getString("Title");
                     String content = resultSet.getString("content");
                     String imageUrl = resultSet.getString("ImageUrl");
-                    String category = resultSet.getString("category"); // Always fetch category from DB
+                    String category = resultSet.getString("category");
+                    String createdAt = resultSet.getString("created_at"); // Fetch created_at field
 
                     // Create Article object (JavaFX component) for each result
-                    Article article = new Article(title, content, category, imageUrl);
-                    articleUIs.add(article.getArticleHBox());  // Add HBox to the list
+                    Article article = new Article(title, content, category, imageUrl, createdAt); // Pass created_at
+                    articleUIs.add(article.getArticleHBox());
                 }
             }
 
@@ -75,10 +75,9 @@ public class Connector {
     }
 
 
-
     public static List<HBox> searchForArticles(String keyword) {
         List<HBox> articleUIs = new ArrayList<>();
-        
+
         // SQL query to search for articles by matching title, content, or category
         String query = "SELECT * FROM article WHERE title LIKE ? OR content LIKE ? OR category LIKE ?";
 
@@ -86,30 +85,22 @@ public class Connector {
              PreparedStatement statement = connection.prepareStatement(query)) {
 
             // Prepare the query with the keyword
-            String searchPattern = "%" + keyword + "%"; // Add wildcard for search
+            String searchPattern = "%" + keyword + "%";
             statement.setString(1, searchPattern);
             statement.setString(2, searchPattern);
-            statement.setString(3, searchPattern); // Added search for category as well
-
-            System.out.println("Executing query: " + query);  // Debug print for the query
+            statement.setString(3, searchPattern);
 
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     String title = resultSet.getString("Title");
                     String content = resultSet.getString("content");
                     String imageUrl = resultSet.getString("ImageUrl");
-                    String category = resultSet.getString("category"); // Fetch category
-
-                    // Print out each result for debugging
-                    System.out.println("Found article: ");
-                    System.out.println("Title: " + title);
-                    System.out.println("Content: " + content);
-                    System.out.println("Category: " + category);
-                    System.out.println("Image URL: " + imageUrl);
+                    String category = resultSet.getString("category");
+                    String createdAt = resultSet.getString("created_at"); // Fetch created_at field
 
                     // Create Article object (JavaFX component) for each result
-                    Article article = new Article(title, content, category , imageUrl); // Pass category to the Article object
-                    articleUIs.add(article.getArticleHBox());  // Add HBox to the list
+                    Article article = new Article(title, content, category, imageUrl, createdAt); // Pass created_at
+                    articleUIs.add(article.getArticleHBox());
                 }
             }
 
@@ -118,11 +109,9 @@ public class Connector {
             e.printStackTrace();
         }
 
-        // Print the total number of results
-        System.out.println("Total articles found: " + articleUIs.size());
-
         return articleUIs;
     }
+
 
     public static boolean authenticate(String username, String password) {
         // Query to retrieve the stored password hash for the given username
