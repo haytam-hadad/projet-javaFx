@@ -40,7 +40,7 @@
                   <Font size="13.0" />
                </font>
             </Label>
-            <Button fx:id="postArticleButton" alignment="CENTER" contentDisplay="CENTER" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 10px; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: brown;" text="Post article  ➕" textAlignment="CENTER" />
+            <Button fx:id="postArticleButton" alignment="CENTER" contentDisplay="CENTER" onAction="#Onpost" prefHeight="44.0" prefWidth="127.0" style="-fx-background-color: transparent; -fx-font-weight: bold; -fx-font-size: 15; -fx-alignment: CENTER_LEFT; -fx-padding: 10px; -fx-background-radius: 15px; -fx-border-radius: 15px; -fx-border-color: brown;" text="Post article  ➕" textAlignment="CENTER" />
             <Separator prefWidth="200.0" />
             <Button fx:id="logoutButton" prefHeight="40.0" prefWidth="73.0" style="-fx-background-color: transparent; -fx-text-fill: brown; -fx-font-weight: bold; -fx-padding: 10px; -fx-font-size: 14; -fx-alignment: CENTER_LEFT;" text="Log out" />
          </children>
@@ -133,7 +133,7 @@
                      <Label style="-fx-font-weight: bold; -fx-font-size: 20;" text="🔒 Update Password" />
                      <VBox alignment="CENTER" spacing="10.0">
                         <children>
-                           <TextField fx:id="oldPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter current password" style="-fx-background-color: #f1f1f1;" />
+                           <TextField fx:id="currentPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter current password" style="-fx-background-color: #f1f1f1;" />
                            <TextField fx:id="newPasswordField" maxWidth="1.7976931348623157E308" promptText="Enter new password" style="-fx-background-color: #f1f1f1;" />
                            <TextField fx:id="confirmPasswordField" maxWidth="1.7976931348623157E308" promptText="Confirm new password" style="-fx-background-color: #f1f1f1;" />
                         </children>

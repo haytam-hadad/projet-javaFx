@@ -12,7 +12,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("layout.fxml"));
+        	FXMLLoader loader = new FXMLLoader(getClass().getResource("layout.fxml"));
 
             BorderPane root = loader.load();
 

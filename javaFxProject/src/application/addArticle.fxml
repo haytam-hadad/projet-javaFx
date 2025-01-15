@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addarticleController">
+   <bottom>
+      <HBox alignment="CENTER" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
+         <children>
+            <Label prefHeight="30.0" prefWidth="335.0" text="© 2025 World News                   Contact: info@worldnews.com" textFill="WHITE" />
+         </children>
+         <BorderPane.margin>
+            <Insets top="10.0" />
+         </BorderPane.margin>
+      </HBox>
+   </bottom>
+   <center>
+      <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" spacing="28.0">
+               <children>
+                  <Label text="Categorie :" />
+                  <TextField fx:id="cateid" prefHeight="25.0" prefWidth="300.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" spacing="20.0">
+               <children>
+                  <Label text="Article Title :" />
+                  <TextField fx:id="titid" prefHeight="25.0" prefWidth="300.0" />
+               </children>
+            </HBox>
+            <Label text="Content :">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="contid" prefHeight="195.0" prefWidth="604.0" VBox.vgrow="ALWAYS">
+               <VBox.margin>
+                  <Insets right="10.0" top="10.0" />
+               </VBox.margin>
+            </TextArea>
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="SubArticlebtn" mnemonicParsing="false" onAction="#OnSubArticle" style="-fx-background-color: lightgreen;" text="Submit">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+         <BorderPane.margin>
+            <Insets left="10.0" />
+         </BorderPane.margin>
+      </VBox>
+   </center>
+   <top>
+      <Label fx:id="pagetitle" prefHeight="45.0" prefWidth="217.0" text="Add An Article !" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <BorderPane.margin>
+            <Insets bottom="10.0" top="10.0" />
+         </BorderPane.margin>
+      </Label>
+   </top>
+</BorderPane>

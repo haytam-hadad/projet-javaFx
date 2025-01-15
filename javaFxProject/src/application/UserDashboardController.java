@@ -1,13 +1,13 @@
 package application;
 
-import java.util.Optional;
-
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import java.io.IOException;
+import java.util.Optional;
 
 public class UserDashboardController {
 
@@ -19,7 +19,10 @@ public class UserDashboardController {
 
     @FXML
     private Label joinDateLabel;
-
+    
+    @FXML
+    private Button postArticleButton;
+    
     @FXML
     private TextField newUsernameField;
 
@@ -40,9 +43,6 @@ public class UserDashboardController {
 
     @FXML
     private Button updateEmailButton;
-    
-    @FXML
-    private Button updatePasswordButton;
 
     @FXML
     private Button changePasswordButton;
@@ -63,7 +63,7 @@ public class UserDashboardController {
         // Initialize button actions
         if (updateUsernameButton != null) updateUsernameButton.setOnAction(event -> updateUsername());
         if (updateEmailButton != null) updateEmailButton.setOnAction(event -> updateEmail());
-        if (updatePasswordButton != null) updatePasswordButton.setOnAction(event -> changePassword());
+        if (changePasswordButton != null) changePasswordButton.setOnAction(event -> changePassword());
         if (logoutButton != null) logoutButton.setOnAction(event -> logout());
     }
 
@@ -125,18 +125,40 @@ public class UserDashboardController {
             }
         }
     }
+    
+    public void Onpost() {
+        try {
+            // Close the current window
+            Stage currentStage = (Stage) postArticleButton.getScene().getWindow();
+            currentStage.close();  // Closes the current window
+            
+            // Load the new FXML
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("articleDash.fxml"));
+            Parent root = loader.load();
+            
+            // Create a new stage and set the new scene
+            Stage newStage = new Stage();
+            newStage.setScene(new Scene(root)); // Set the new scene
+            newStage.setTitle("Article Dashboard"); // Set the window title
+            newStage.show();  // Show the new stage
+        } catch (IOException e) {
+            e.printStackTrace();  // Handle exception
+            showErrorDialog("Error", "Failed to load new page.");
+        }
+    }
 
+    
+    
     private void changePassword() {
         String oldPassword = oldPasswordField.getText();
         String newPassword = newPasswordField.getText();
-        if (!isInputValid(oldPassword, "Old Password") || !isInputValid(newPassword, "New Password")) return;
-
+        if (!isInputValid(oldPassword, "Old Password") || !isInputValid(newPassword, "New Password")) {
+        	System.out.println("hello world");
+        };
         if (showConfirmationDialog("Password Change", "Are you sure you want to change your password?",
                 "Your password will be updated.")) {
             if (Connector.changePassword(UserSession.getId(), oldPassword, newPassword)) {
                 System.out.println("Password updated successfully.");
-                UserSession.logout();
-                clearInputFields();
             } else {
                 showErrorDialog("Password Change Failed", "The old password you entered is incorrect. Please try again.");
             }
@@ -144,22 +166,27 @@ public class UserDashboardController {
     }
 
     private void logout() {
-        if (showConfirmationDialog("Logout", "Are you sure you want to log out?", "You will be logged out of your account.")) {
+        if (showConfirmationDialog("Logout", "Are you sure you want to log out?",
+                "You will be logged out of your account.")) {
+            // Clear the user session
             UserSession.logout();
             System.out.println("Logging out...");
-            System.exit(0);  // You can replace this with primaryStage.close() in a more complex app
+
+            // Close the current application window
+            System.exit(0);  // This will terminate the app
         } else {
             System.out.println("Logout canceled.");
         }
     }
 
     private void clearInputFields() {
-        newUsernameField.clear();
-        newEmailField.clear();
-        oldPasswordField.clear();
-        newPasswordField.clear();
-        confirmPasswordField.clear();
+        if (newUsernameField != null) newUsernameField.clear();
+        if (newEmailField != null) newEmailField.clear();
+        if (oldPasswordField != null) oldPasswordField.clear();
+        if (newPasswordField != null) newPasswordField.clear();
+        if (confirmPasswordField != null) confirmPasswordField.clear();
     }
+
 
     private void showSuccessDialog(String message) {
         Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -168,4 +195,5 @@ public class UserDashboardController {
         successAlert.setContentText(message);
         successAlert.showAndWait();
     }
+
 }

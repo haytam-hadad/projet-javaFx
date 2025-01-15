@@ -10,7 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 
 public class Connector {
-    private static final String URL = "jdbc:mysql://localhost:3306/javadb";
+    private static final String URL = "jdbc:mysql://localhost:3306/projetjavafx";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
@@ -26,7 +26,6 @@ public class Connector {
     }
 
     // Method to fetch articles by category
-    
     public static List<HBox> fetchArticles(String category) {
         List<HBox> articleUIs = new ArrayList<>();
         String query = "SELECT a.*, u.username FROM article a " +
@@ -58,6 +57,32 @@ public class Connector {
         }
         return articleUIs;
     }
+    // Fetch articles submitted by the logged-in user
+    public static List<Article> fetchArticlesByUser(int userId) {
+        List<Article> articles = new ArrayList<>();
+        String query = "SELECT * FROM article WHERE userID = ?"; // assuming there is a user_id field in your article table
+        
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            statement.setInt(1, userId);  // Use the logged-in user's ID
+            
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    int id = resultSet.getInt("id");
+                    String title = resultSet.getString("title");
+                    String category = resultSet.getString("category");
+                    
+                    // Create the Article object
+                    Article article = new Article(id, title, category);
+                    articles.add(article);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return articles;
+    }
+
     
     public static List<HBox> searchForArticles(String keyword) {
         List<HBox> articleUIs = new ArrayList<>();
@@ -98,9 +123,7 @@ public class Connector {
 
         return articleUIs;
     }
-
-
-
+    
     // Method to authenticate a user during login
     public static boolean authenticate(String username, String password) {
         String query = "SELECT id, passkey, email, role FROM users WHERE username = ?";
@@ -136,7 +159,23 @@ public class Connector {
         }
         return false;  // Authentication failed
     }
-
+    
+    
+    public static boolean deleteArticle(int articleId) {
+        String query = "DELETE FROM article WHERE id = ?";
+        
+        try (Connection connection = connect();
+             PreparedStatement statement = connection.prepareStatement(query)) {
+            
+            statement.setInt(1, articleId);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0; // Return true if the article was deleted
+            
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
 
     // Method to handle user signup
     public static boolean signupUser(String username, String password, String email) {
@@ -212,13 +251,12 @@ public class Connector {
 
     // Method to save user information in the database
     public static void saveUser(String username, String email) {
-        String query = "INSERT INTO users (username, email, status, role, active) VALUES (?, ?, ?, ?, ?)";
+        String query = "INSERT INTO users (username, email, status, role) VALUES (?, ?, ?, ?)";
         try (Connection conn = connect(); PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, username);
             stmt.setString(2, email);
             stmt.setString(3, "Active");
             stmt.setString(4, "User");
-            stmt.setBoolean(5, true);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
