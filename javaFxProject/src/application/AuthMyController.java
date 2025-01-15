@@ -54,7 +54,7 @@ public class AuthMyController {
         String inputPassword = passwordfield.getText();
 
         if (inputUsername.isEmpty() || inputPassword.isEmpty()) {
-            titrelogin.setText("Please fill in both fields.");
+            Connector.showError("All fields are required!", "Please make sure all fields are filled out.");
             return;
         }
 
@@ -75,7 +75,8 @@ public class AuthMyController {
                 e.printStackTrace();
             }
         } else {
-            titrelogin.setText("Incorrect username or password.");
+            Connector.showError("Username or Password is Incorrect", "Please Try again.");
+
         }
 
         passwordfield.clear();

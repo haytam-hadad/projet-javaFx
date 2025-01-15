@@ -45,7 +45,7 @@ public class UserDashboardController {
     private Button updateEmailButton;
 
     @FXML
-    private Button changePasswordButton;
+    private Button updatePasswordButton;
 
     @FXML
     private Button logoutButton;
@@ -63,7 +63,7 @@ public class UserDashboardController {
         // Initialize button actions
         if (updateUsernameButton != null) updateUsernameButton.setOnAction(event -> updateUsername());
         if (updateEmailButton != null) updateEmailButton.setOnAction(event -> updateEmail());
-        if (changePasswordButton != null) changePasswordButton.setOnAction(event -> changePassword());
+        if (updatePasswordButton != null) updatePasswordButton.setOnAction(event -> changePassword());
         if (logoutButton != null) logoutButton.setOnAction(event -> logout());
     }
 
@@ -148,7 +148,7 @@ public class UserDashboardController {
     }
 
     
-    
+
     private void changePassword() {
         String oldPassword = oldPasswordField.getText();
         String newPassword = newPasswordField.getText();
