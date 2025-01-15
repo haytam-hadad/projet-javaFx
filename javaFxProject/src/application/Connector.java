@@ -10,7 +10,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.HBox;
 
 public class Connector {
-    private static final String URL = "jdbc:mysql://localhost:3306/projetjavafx";
+    private static final String URL = "jdbc:mysql://localhost:3306/javadb";
     private static final String USER = "root";
     private static final String PASSWORD = "";
 
@@ -58,22 +58,20 @@ public class Connector {
         return articleUIs;
     }
     // Fetch articles submitted by the logged-in user
-    public static List<Article> fetchArticlesByUser(int userId) {
-        List<Article> articles = new ArrayList<>();
-        String query = "SELECT * FROM article WHERE userID = ?"; // assuming there is a user_id field in your article table
+    public static List<List<String>> fetchArticlesByUser(int userId) {
+        List<List<String>> articles = new ArrayList<>();
+        String query = "SELECT id, title, category FROM article WHERE userID = ?"; // Fetch only the necessary columns
         
         try (Connection connection = connect();
              PreparedStatement statement = connection.prepareStatement(query)) {
-            statement.setInt(1, userId);  // Use the logged-in user's ID
+            statement.setInt(1, userId);
             
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    int id = resultSet.getInt("id");
-                    String title = resultSet.getString("title");
-                    String category = resultSet.getString("category");
-                    
-                    // Create the Article object
-                    Article article = new Article(id, title, category);
+                    List<String> article = new ArrayList<>();
+                    article.add(String.valueOf(resultSet.getInt("id")));
+                    article.add(resultSet.getString("title"));
+                    article.add(resultSet.getString("category"));
                     articles.add(article);
                 }
             }
@@ -82,6 +80,7 @@ public class Connector {
         }
         return articles;
     }
+
 
     
     public static List<HBox> searchForArticles(String keyword) {

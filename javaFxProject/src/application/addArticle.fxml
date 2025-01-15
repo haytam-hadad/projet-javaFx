@@ -10,45 +10,35 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addarticleController">
-   <bottom>
-      <HBox alignment="CENTER" prefHeight="39.0" prefWidth="600.0" style="-fx-background-color: #222;" BorderPane.alignment="CENTER">
-         <children>
-            <Label prefHeight="30.0" prefWidth="335.0" text="© 2025 World News                   Contact: info@worldnews.com" textFill="WHITE" />
-         </children>
-         <BorderPane.margin>
-            <Insets top="10.0" />
-         </BorderPane.margin>
-      </HBox>
-   </bottom>
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #fff; -fx-padding: 10px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.addarticleController">
    <center>
-      <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+      <VBox prefHeight="285.0" prefWidth="600.0" spacing="5.0" style="-fx-padding: 15px; -fx-background-color: #f9f9f9; -fx-background-radius: 10px; -fx-border-radius: 10px;" BorderPane.alignment="CENTER">
          <children>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" spacing="28.0">
                <children>
-                  <Label text="Categorie :" />
-                  <TextField fx:id="cateid" prefHeight="25.0" prefWidth="300.0" />
+                  <Label style="-fx-font-weight: bold;" text="Categorie :" />
+                  <TextField fx:id="cateid" prefHeight="25.0" prefWidth="300.0" promptText="add categorie" style="-fx-background-color: #fff; -fx-border-color: #aaa; -fx-background-radius: 5px; -fx-border-radius: 5px;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" prefHeight="40.0" prefWidth="600.0" spacing="20.0">
                <children>
-                  <Label text="Article Title :" />
-                  <TextField fx:id="titid" prefHeight="25.0" prefWidth="300.0" />
+                  <Label style="-fx-font-weight: bold;" text="Article Title :" />
+                  <TextField fx:id="titid" prefHeight="25.0" prefWidth="300.0" promptText="add a title" style="-fx-background-color: #fff; -fx-border-color: #aaa; -fx-background-radius: 5px; -fx-border-radius: 5px;" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
-            <Label text="Content :">
+            <Label style="-fx-font-weight: bold;" text="Content :">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Label>
-            <TextArea fx:id="contid" prefHeight="195.0" prefWidth="604.0" VBox.vgrow="ALWAYS">
+            <TextArea fx:id="contid" prefHeight="195.0" prefWidth="604.0" promptText="add the content of the article" style="-fx-background-color: #fff; -fx-border-color: #aaa; -fx-background-radius: 5px; -fx-border-radius: 5px;" VBox.vgrow="ALWAYS">
                <VBox.margin>
                   <Insets right="10.0" top="10.0" />
                </VBox.margin>
             </TextArea>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
-                  <Button fx:id="SubArticlebtn" mnemonicParsing="false" onAction="#OnSubArticle" style="-fx-background-color: lightgreen;" text="Submit">
+                  <Button fx:id="SubArticlebtn" mnemonicParsing="false" onAction="#OnSubArticle" prefHeight="32.0" prefWidth="190.0" style="-fx-background-color: green; -fx-font-weight: bold; -fx-text-fill: #fff;" text="Submit">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -62,7 +52,7 @@
       </VBox>
    </center>
    <top>
-      <Label fx:id="pagetitle" prefHeight="45.0" prefWidth="217.0" text="Add An Article !" BorderPane.alignment="CENTER">
+      <Label fx:id="pagetitle" alignment="CENTER" contentDisplay="CENTER" prefHeight="45.0" prefWidth="215.0" style="-fx-font-weight: bold;" text="Add An Article" underline="true" BorderPane.alignment="CENTER">
          <font>
             <Font size="30.0" />
          </font>
